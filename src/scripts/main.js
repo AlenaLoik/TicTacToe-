@@ -51,7 +51,7 @@ function putingSumbolsOnTable(table) {
 
     if (tableCell.textContent) {
       return alert(`В цій клітинці вже хтось проживає,
-      знайди собі іншу фбо почни гру з початку`);
+      знайди собі іншу або почни гру з початку`);
     }
 
     if (variable) {
