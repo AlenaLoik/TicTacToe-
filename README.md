@@ -1,2 +1,2 @@
 
-    - [TicTacToe](https://alenaloik.github.io/TicTacToe/)
+    - [TicTacToe](https://alenaloik.github.io/TicTacToe-/)
