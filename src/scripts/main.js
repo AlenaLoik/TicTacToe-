@@ -28,6 +28,7 @@ function startGame() {
         for (const cell of cellList) {
           cell.textContent = '';
         }
+        putingSumbolsOnTable(document.querySelector('table'));
       }
     }
   });
@@ -42,7 +43,7 @@ function putingSumbolsOnTable(table) {
   const buttomCell = table.querySelectorAll('.row__buttom');
   let variable = false;
 
-  tbody.addEventListener('click', (e) => {
+  const listener = function(e) {
     const tableCell = e.target.closest('[data-cell]');
 
     if (!tableCell) {
@@ -63,36 +64,39 @@ function putingSumbolsOnTable(table) {
       tableCell.textContent = 'x';
       checkedWinner('x');
     }
+  };
 
-    function checkedWinner(value) {
-      if ((value === topCell[0].textContent
+  tbody.addEventListener('click', listener);
+
+  function checkedWinner(value) {
+    if ((value === topCell[0].textContent
+      & value === topCell[1].textContent
+      & value === topCell[2].textContent)
+      || (value === middleCell[0].textContent
+        & value === middleCell[1].textContent
+        & value === middleCell[2].textContent)
+      || (value === buttomCell[0].textContent
+        & value === buttomCell[1].textContent
+        & value === buttomCell[2].textContent)
+      || (value === topCell[0].textContent
+        & value === middleCell[0].textContent
+        & value === buttomCell[0].textContent)
+      || (value === buttomCell[1].textContent
         & value === topCell[1].textContent
+        & value === middleCell[1].textContent)
+      || (value === buttomCell[2].textContent
+        & value === middleCell[2].textContent
         & value === topCell[2].textContent)
-        || (value === middleCell[0].textContent
-          & value === middleCell[1].textContent
-          & value === middleCell[2].textContent)
-        || (value === buttomCell[0].textContent
-          & value === buttomCell[1].textContent
-          & value === buttomCell[2].textContent)
-        || (value === topCell[0].textContent
-          & value === middleCell[0].textContent
-          & value === buttomCell[0].textContent)
-        || (value === buttomCell[1].textContent
-          & value === topCell[1].textContent
-          & value === middleCell[1].textContent)
-        || (value === buttomCell[2].textContent
-          & value === middleCell[2].textContent
-          & value === topCell[2].textContent)
-        || (value === topCell[0].textContent
-          & value === middleCell[1].textContent
-          & value === buttomCell[2].textContent)
-        || (value === topCell[2].textContent
-          & value === middleCell[1].textContent
-          & value === buttomCell[0].textContent)) {
-        alert(`' ${value.toUpperCase()} ' - ПЕРЕМОГЛИ!`);
-      }
+      || (value === topCell[0].textContent
+        & value === middleCell[1].textContent
+        & value === buttomCell[2].textContent)
+      || (value === topCell[2].textContent
+        & value === middleCell[1].textContent
+        & value === buttomCell[0].textContent)) {
+      alert(`' ${value.toUpperCase()} ' - ПЕРЕМОГЛИ!`);
+      tbody.removeEventListener('click', listener);
     }
-  });
+  }
 }
 
 putingSumbolsOnTable(document.querySelector('table'));
