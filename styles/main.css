@@ -34,7 +34,12 @@ caption {
   background-color: #fd5c63;
   color: #fff;
   padding: 10px;
-  margin: 20px 0; }
+  margin: 20px 0;
+  text-align: start; }
+
+.table__header {
+  border: none;
+  font-size: 20px; }
 
 td {
   width: 120px;

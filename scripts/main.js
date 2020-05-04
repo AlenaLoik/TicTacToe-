@@ -1,9 +1,11 @@
 'use strict';
 
 const button = document.querySelector('.button');
+const caption = document.querySelector('caption');
+let userName1 = '';
+let userName2 = '';
 
 function startGame() {
-  const caption = document.querySelector('caption');
   const table = document.querySelector('table');
 
   button.addEventListener('click', (e) => {
@@ -11,15 +13,15 @@ function startGame() {
 
     function action(buttonContent) {
       if (buttonContent === 'зіграємо') {
-        const userName = prompt(`Привіт, будь-ласка, введи своє ім'я...`,
-          'невідомий');
+        userName1 = prompt(`Привіт, Гравець 1, ім'я: `,
+          'невідомий 1');
 
-        if (userName) {
-          caption.textContent += `${userName}`;
-          button.style = 'top: 500px';
-          table.style = 'visibility: visible';
-          button.textContent = 'почати знову';
-        };
+        userName2 = prompt(`Гравець 2, ім'я: `,
+          'невідомий 2');
+        caption.textContent = `Починає гру: ${userName1}`;
+        button.style = 'top: 500px';
+        table.style = 'visibility: visible';
+        button.textContent = 'почати знову';
       }
 
       if (buttonContent === 'почати знову') {
@@ -28,6 +30,8 @@ function startGame() {
         for (const cell of cellList) {
           cell.textContent = '';
         }
+
+        table.removeEventListener('click', listener);
         putingSumbolsOnTable(document.querySelector('table'));
       }
     }
@@ -57,10 +61,12 @@ function putingSumbolsOnTable(table) {
 
     if (variable) {
       variable = false;
+      caption.textContent = `Хід: ${userName1}`;
       tableCell.textContent = 'o';
       checkedWinner('o');
     } else {
       variable = true;
+      caption.textContent = `Хід: ${userName2}`;
       tableCell.textContent = 'x';
       checkedWinner('x');
     }
@@ -93,8 +99,13 @@ function putingSumbolsOnTable(table) {
       || (value === topCell[2].textContent
         & value === middleCell[1].textContent
         & value === buttomCell[0].textContent)) {
-      alert(`' ${value.toUpperCase()} ' - ПЕРЕМОГЛИ!`);
-      tbody.removeEventListener('click', listener);
+      alert(` ${value.toUpperCase()} ' - ПЕРЕМОГЛИ!`);
+
+      const cellList = table.querySelectorAll('td');
+
+      for (const cell of cellList) {
+        cell.textContent = '';
+      }
     }
   }
 }
